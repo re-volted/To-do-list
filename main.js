@@ -116,7 +116,7 @@ doneBtn.addEventListener("click", (e) => {
             const index = thingsToDo.findIndex(item => item === li.textContent);
             thingsToDo.splice(index, 1);
             li.remove();
-            doneBtn.classList.toggle('activeBtn');
+            doneBtn.classList.remove('activeBtn');
         }
     })
     updateLiToDoList();
@@ -132,7 +132,7 @@ deleteBtn.addEventListener("click", (e) => {
             const index = thingsDone.findIndex(item => item === li.textContent);
             thingsDone.splice(index, 1);
             li.remove();
-            deleteBtn.classList.toggle('activeBtn');
+            deleteBtn.classList.remove('activeBtn');
         }
     })
     updateLiDoneList();
