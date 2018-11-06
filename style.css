@@ -1,0 +1,191 @@
+* {
+   font-family: 'Chelsea Market', cursive;
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+   /* text-align: center; */
+}
+
+/* GENERAL */
+.container {
+   width: 80vw;
+   padding-top: 5rem;
+   height: 100vh;
+   position: relative;
+   left: 50%;
+   transform: translateX(-50%);
+   box-sizing: border-box;
+}
+
+.flex_rows {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
+/* 
+footer {
+   width: 100%;
+   text-align: center;
+   border-top: 1px solid #ccc;
+   padding: .2rem;
+   box-sizing: border-box;
+} */
+
+.desc {
+   width: 100%;
+   display: inline-block;
+   margin: 1rem 0;
+}
+
+/* TEXT */
+h1 {
+   border-bottom: 1px solid black;
+}
+
+h2 {
+   padding: 0rem;
+   padding-bottom: .25rem;
+   margin-bottom: .25rem;
+   display: inline-block;
+   border-bottom: 1px solid black;
+}
+
+label {
+   display: inline-block;
+   margin: 0;
+}
+
+/* INPUT */
+input {
+   border: 1px solid orange;
+   width: 45%;
+   padding: 0.25rem;
+   font-size: 1rem;
+   margin-left: 1rem;
+}
+
+input:focus {
+   border: 1px solid orange;
+   outline: none;
+   background-color: rgb(255, 250, 239);
+}
+
+/* BUTTONS */
+button {
+   background-color: #ddd;
+   color: #889;
+   border: 1px solid #888;
+   cursor: auto;
+   padding: 0.25rem 1rem;
+   margin-left: 0.5rem;
+   font-size: 1rem;
+   position: absolute;
+   right: 0;
+}
+
+button:hover {
+   box-shadow: 0 0 3px orange;
+}
+
+.activeBtn {
+   color: white;
+   background-color: black;
+   border: 1px solid orange;
+   cursor: pointer;
+}
+
+.buttonInactive:hover {
+   box-shadow: none;
+}
+
+/* UL & LI */
+li {
+   list-style: none;
+   background-color: #fff;
+   border-bottom: 1px solid orange;
+   margin-top: 5px;
+   min-width: 100px;
+   padding: 3px;
+   box-sizing: border-box;
+   cursor: pointer;
+}
+
+li:hover {
+   background-color: #eee;
+}
+
+.active {
+   list-style-image: url(images/tick.png);
+   list-style-position: inside;
+   background-color: rgb(253, 235, 196);
+   box-sizing: border-box;
+}
+
+li.active:hover {
+   background-color: rgb(253, 235, 196);
+}
+
+#ulDone li {
+   border-bottom: 1px solid green;
+}
+
+#ulDone li.active {
+   background-color: rgb(219, 253, 196);
+}
+
+#ulDone li.active:hover {
+   background-color: rgb(219, 253, 196);
+}
+
+.todo,
+.done {
+   position: relative;
+   min-height: 250px;
+   max-height: 100%;
+   width: 48%;
+   margin-top: 2.5rem;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+   .container {
+      width: 90%;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .flex_rows {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+   }
+
+   .todo,
+   .done {
+      width: 100%;
+      min-height: 150px;
+   }
+
+   .desc {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+   }
+
+   input {
+      margin: .5rem 0 0 0;
+      width: calc(100% - 100px);
+      box-sizing: border-box;
+      margin-left: 0;
+   }
+
+   .submitBtn {
+      display: inline-block;
+      bottom: 0;
+   }
+
+}
