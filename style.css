@@ -158,6 +158,10 @@ li.active:hover {
 }
 
 @media screen and (max-width: 768px) {
+   .container {
+      padding-top: 2rem;
+   }
+
    .flex_rows {
       display: flex;
       flex-direction: column;
