@@ -1,27 +1,106 @@
-const thingsToDo = [];
-const thingsDone = [];
-
 const input = document.querySelector('input');
 const submitBtn = document.querySelector('.submitBtn');
-const doneBtn = document.querySelector('button.doneBtn');
-const deleteBtn = document.querySelector('button.deleteBtn');
-const ulToDo = document.querySelector('#ulToDo');
-const ulDone = document.querySelector('#ulDone');
 
-const labelToDo = document.querySelector('.todo label');
-const labelDone = document.querySelector('.done label');
-let liToDoList = [...document.querySelectorAll('#ulToDo li')];
-let liDoneList = [...document.querySelectorAll('#ulDone li')];
+const toDo = {
+    button: document.querySelector(`.toDo button`),
+    selectAll: document.querySelector('.toDo img'),
+    ul: document.querySelector('.toDo ul'),
+    label: document.querySelector('.toDo label'),
+    liList: [...document.querySelectorAll('.toDo li')],
+    updateLiList: function () {
+        return this.liList = [...document.querySelectorAll('.toDo ul li')];
+    },
+    showListElements: function () {
+        if (this.liList.length) {
+            this.label.style.display = "none";
+            this.selectAll.classList.add('activeImg');
+        } else {
+            this.label.style.display = "inline-block";
+            this.selectAll.classList.remove('activeImg');
+        }
+    },
+    areAllActiveBoolean: false,
+    areAllActive: function () {
+        this.areAllActiveBoolean = true;
+        this.liList.forEach(li => {
+            if (!li.classList.contains('active')) {
+                this.areAllActiveBoolean = false;
+            }
+        })
+        return this.areAllActiveBoolean;
+    },
+    selectAllToggle: function () {
+        if (this.areAllActiveBoolean) {
+            this.selectAll.classList.add('activeImg');
+            this.selectAll.classList.remove('allSelectedImg');
+        } else {
+            this.selectAll.classList.add('allSelectedImg');
+            this.selectAll.classList.remove('activeImg');
+        }
+    },
+    isAnyActiveBoolean: false,
+    isAnyActive: function () {
+        this.isAnyActiveBoolean = false;
+        this.liList.forEach(li => {
+            if (li.classList.contains('active')) {
+                this.isAnyActiveBoolean = true;
+            }
+        });
+        return this.isAnyActiveBoolean;
+    },
 
+};
 
-function updateLiToDoList() {
-    liToDoList = [...document.querySelectorAll('#ulToDo li')];
+const done = {
+    button: document.querySelector(`.done button`),
+    selectAll: document.querySelector('.done img'),
+    ul: document.querySelector('.done ul'),
+    label: document.querySelector('.done label'),
+    liList: [...document.querySelectorAll('.done li')],
+    updateLiList: function () {
+        return done.liList = [...document.querySelectorAll('.done ul li')];
+    },
+    showListElements: function () {
+        if (this.liList.length) {
+            this.label.style.display = "none";
+            this.selectAll.classList.add('activeImg');
+        } else {
+            this.label.style.display = "inline-block";
+            this.selectAll.classList.remove('activeImg');
+        }
+    },
+    areAllActiveBoolean: false,
+    areAllActive: function () {
+        this.areAllActiveBoolean = true;
+        this.liList.forEach(li => {
+            if (!li.classList.contains('active')) {
+                this.areAllActiveBoolean = false;
+            }
+        })
+        return this.areAllActiveBoolean;
+    },
+    selectAllToggle: function () {
+        if (this.areAllActiveBoolean) {
+            this.selectAll.classList.add('activeImg');
+            this.selectAll.classList.remove('allSelectedImg');
+        } else {
+            this.selectAll.classList.add('allSelectedImg');
+            this.selectAll.classList.remove('activeImg');
+        }
+    },
+    isAnyActiveBoolean: false,
+    isAnyActive: function () {
+        this.isAnyActiveBoolean = false;
+        this.liList.forEach(li => {
+            if (li.classList.contains('active')) {
+                this.isAnyActiveBoolean = true;
+            }
+        });
+        return this.isAnyActiveBoolean;
+    },
 }
 
-function updateLiDoneList() {
-    liDoneList = [...document.querySelectorAll('#ulDone li')];
-}
-
+// activation of submit button
 input.addEventListener('input', (e) => {
     e.target.value ? submitBtn.classList.add('activeBtn') : submitBtn.classList.remove('activeBtn');
 })
@@ -31,16 +110,19 @@ function submit() {
     if (!input.value) {
         return alert("You have to write the thing to do first!");
     } else {
-        thingsToDo.push(input.value);
-        const index = thingsToDo.findIndex(item => item === input.value);
+        // thingsToDo.push(input.value);
+        // const index = thingsToDo.findIndex(item => item === input.value);
         const thingToDo = document.createElement('li');
-        thingToDo.textContent = thingsToDo[index];
-        ulToDo.appendChild(thingToDo);
+        // thingToDo.textContent = thingsToDo[index];
+        thingToDo.textContent = input.value;
+        toDo.ul.appendChild(thingToDo);
         input.value = "";
-        liToDoList = [...document.querySelectorAll('#ulToDo li')];
+        toDo.updateLiList();
     }
     submitBtn.classList.remove('activeBtn');
-    liToDoList.length ? labelToDo.style.display = "none" : labelDone.style.display = "inline-block";
+    toDo.showListElements();
+    toDo.areAllActive();
+    toDo.selectAllToggle();
 }
 
 function enterSubmit(e) {
@@ -53,90 +135,103 @@ submitBtn.addEventListener('click', submit);
 input.addEventListener('keypress', enterSubmit);
 
 // activation of things to do
-ulToDo.addEventListener('click', (e) => {
-    let isAnyActive = false;
-    if (e.target !== ulToDo) {
+toDo.ul.addEventListener('click', (e) => {
+    if (e.target !== toDo.ul) {
         e.target.classList.toggle('active');
-        updateLiToDoList();
-        for (let i = 0; i < liToDoList.length; i++) {
-            if (liToDoList[i].classList.contains('active')) {
-                isAnyActive = true;
-            }
-        }
-        isAnyActive ? doneBtn.classList.add('activeBtn') : doneBtn.classList.remove('activeBtn');
-
+        toDo.updateLiList();
+        toDo.showListElements();
+        toDo.areAllActive();
+        toDo.selectAllToggle();
+        toDo.isAnyActive() ? toDo.button.classList.add('activeBtn') : toDo.button.classList.remove('activeBtn');
     }
 })
 
-
-// activation of things done
-ulDone.addEventListener('click', (e) => {
-    let isAnyActive = false;
-    if (e.target !== ulDone) {
+done.ul.addEventListener('click', (e) => {
+    if (e.target !== done.ul) {
         e.target.classList.toggle('active');
-        updateLiDoneList();
-        for (let i = 0; i < liDoneList.length; i++) {
-            if (liDoneList[i].classList.contains('active')) {
-                isAnyActive = true;
-            }
-        }
-        isAnyActive ? deleteBtn.classList.add('activeBtn') : deleteBtn.classList.remove('activeBtn');
-    };
-
+        done.updateLiList();
+        done.showListElements();
+        done.areAllActive();
+        done.selectAllToggle();
+        done.isAnyActive() ? done.button.classList.add('activeBtn') : done.button.classList.remove('activeBtn');
+    }
 })
 
-// clicking inactive button
-
-doneBtn.addEventListener('click', function () {
-    if (!liToDoList.length) {
-        alert('There are no cases to be done!');
-    } else if (!(this.classList.contains('activeBtn'))) {
-        alert('You need to tick the case first!')
+// selecting all
+toDo.selectAll.addEventListener('click', function (e) {
+    if (toDo.areAllActive()) {
+        toDo.liList.forEach(li => li.classList.remove('active'));
+        toDo.button.classList.remove('activeBtn');
+    } else {
+        toDo.liList.forEach(li => li.classList.add('active'));
+        toDo.button.classList.add('activeBtn');
     };
+    toDo.areAllActive();
+    toDo.selectAllToggle();
 })
 
-deleteBtn.addEventListener('click', function () {
-    if (!liDoneList.length) {
-        alert('There are no cases done to be deleted!');
-    } else if (!(this.classList.contains('activeBtn'))) {
-        alert('You need to tick the case first!')
+done.selectAll.addEventListener('click', function (e) {
+    if (done.areAllActive()) {
+        done.liList.forEach(li => li.classList.remove('active'));
+        done.button.classList.remove('activeBtn');
+    } else {
+        done.liList.forEach(li => li.classList.add('active'));
+        done.button.classList.add('activeBtn');
     };
+    done.areAllActive();
+    done.selectAllToggle();
 })
 
 // making things "done"
-doneBtn.addEventListener("click", (e) => {
-    liToDoList.forEach(li => {
+toDo.button.addEventListener("click", function (e) {
+    if (!toDo.liList.length) {
+        return alert('There are no cases to be done!');
+    } else if (!(this.classList.contains('activeBtn'))) {
+        return alert('You need to tick the case first!');
+    };
+    toDo.liList.forEach(li => {
         if (li.classList.contains('active')) {
             const newLi = document.createElement('li');
             newLi.textContent = li.textContent;
             newLi.style.textDecoration = "line-through";
-            ulDone.appendChild(newLi);
-            thingsDone.push(newLi.textContent);
-            updateLiDoneList();
-            const index = thingsToDo.findIndex(item => item === li.textContent);
-            thingsToDo.splice(index, 1);
+            done.ul.appendChild(newLi);
+            // thingsDone.push(newLi.textContent);
+            done.updateLiList();
+            // const index = thingsToDo.findIndex(item => item === li.textContent);
+            // thingsToDo.splice(index, 1);
             li.remove();
-            doneBtn.classList.remove('activeBtn');
+            this.classList.remove('activeBtn');
         }
     })
-    updateLiToDoList();
-    updateLiDoneList();
-    liToDoList.length ? labelToDo.style.display = "none" : labelToDo.style.display = "inline-block";
-    liDoneList.length ? labelDone.style.display = "none" : labelDone.style.display = "inline-block";
+    toDo.updateLiList();
+    done.updateLiList();
+    toDo.showListElements();
+    done.showListElements();
+    done.areAllActive();
+    done.selectAllToggle();
+    if (!toDo.liList.length) {
+        toDo.selectAll.classList.remove('activeImg');
+        toDo.selectAll.classList.remove('allSelectedImg');
+    }
 })
 
 // deleting done things
-deleteBtn.addEventListener("click", (e) => {
-    liDoneList.forEach(li => {
+done.button.addEventListener("click", function (e) {
+    if (!done.liList.length) {
+        return alert('There are no cases done to be deleted!');
+    } else if (!(this.classList.contains('activeBtn'))) {
+        return alert('You need to tick the case first!')
+    };
+    done.liList.forEach(li => {
         if (li.classList.contains('active')) {
-            const index = thingsDone.findIndex(item => item === li.textContent);
-            thingsDone.splice(index, 1);
+            // const index = thingsDone.findIndex(item => item === li.textContent);
+            // thingsDone.splice(index, 1);
             li.remove();
-            deleteBtn.classList.remove('activeBtn');
+            done.button.classList.remove('activeBtn');
         }
     })
-    updateLiDoneList();
-    liDoneList.length ? labelDone.style.display = "none" : labelDone.style.display = "inline-block";
+    done.updateLiList();
+    done.showListElements();
 })
 
 // // input width

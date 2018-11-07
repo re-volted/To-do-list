@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Chelsea+Market" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
     <title>To do list</title>
 </head>
 
@@ -16,16 +17,24 @@
         <div class="desc">
             <label for="input">What do You need to do: </label><input type="text"><button class="submitBtn">Submit</button>
         </div>
-        <div class="flex_rows">
-            <div class="todo">
-                <h2>Things to do</h2><button class="doneBtn">Done</button>
-                <ul id="ulToDo">
+        <div class="flex_rows flex_columnMQ">
+            <div class="toDo">
+                <div class="flex_rows">
+                    <h2>Things to do</h2>
+                    <img src="images/all.png">
+                    <button>Done</button>
+                </div>
+                <ul>
                 </ul>
                 <label for="toDo">-</label>
             </div>
             <div class="done">
-                <h2>Things done</h2><button class="deleteBtn">Delete</button>
-                <ul id="ulDone">
+                <div class="flex_rows">
+                    <h2>Things done</h2>
+                    <img src="images/all.png">
+                    <button>Delete</button>
+                </div>
+                <ul>
                 </ul>
                 <label for="done">-</label>
             </div>
@@ -33,7 +42,6 @@
 
         <!-- <footer>Created by Revolted</footer> -->
     </div>
-    <script src="main.js"></script>
 </body>
 
 </html>
